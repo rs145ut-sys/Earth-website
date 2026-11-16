@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Earth News - Do You Know About Earth?</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    color: #211d17;
+    background: #b8a98b;
+    font-family: Georgia, serif;
+}
+
+.newspaper {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px;
+    background-color: #f1e5c8;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(90,65,30,0.025) 0px,
+            transparent 2px,
+            transparent 4px
+        );
+    box-shadow: 0 0 25px #51432f;
+    border: 1px solid #8c7958;
+}
+
+.topline {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #211d17;
+    padding-bottom: 8px;
+    font-size: 12px;
+}
+
+.masthead {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 5px double #211d17;
+}
+
+.logo {
+    font-size: 55px;
+}
+
+.masthead h1 {
+    font-size: clamp(30px, 6vw, 65px);
+    margin: 5px 0;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.masthead p {
+    font-style: italic;
+    font-size: 15px;
+}
+
+.navigation {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid #211d17;
+}
+
+.navigation a {
+    color: #211d17;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.main-heading {
+    text-align: center;
+    padding: 25px 0;
+    border-bottom: 1px solid #211d17;
+}
+
+.main-heading h2 {
+    font-size: 35px;
+    margin: 5px;
+}
+
+.main-heading p {
+    font-style: italic;
+}
+
+#articles {
+    padding: 25px 0;
+}
+
+.article {
+    padding: 22px 0;
+    border-bottom: 1px solid #88795f;
+}
+
+.article h2 {
+    font-size: 29px;
+    margin: 5px 0 12px;
+}
+
+.article img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+    filter: sepia(20%);
+}
+
+.article p {
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.article-date {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.article a {
+    color: #633d19;
+    font-weight: bold;
+}
+
+.status {
+    text-align: center;
+    padding: 30px;
+    font-style: italic;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 5px double #211d17;
+    font-size: 13px;
+}
+.navigation a:hover {
+    color: #9b4b16;
+    text-decoration: underline;
+}
+
+.navigation a:first-child {
+    border: 1px solid #211d17;
+    padding: 8px 14px;
+    display: inline-block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="newspaper">
+
+    <div class="topline">
+        <span>THE EARTH NEWSPAPER</span>
+        <span>SCIENCE • NATURE • DISCOVERY</span>
+    </div>
+
+    <header class="masthead">
+        <div class="logo">🌍</div>
+        <h1>DO YOU KNOW ABOUT EARTH?</h1>
+        <p>Discovering Our Planet, One Story at a Time</p>
+    </header>
+
+  <nav class="navigation">
+    <a href="index.html">🏠 BACK TO HOME</a>
+</nav>
+
+    <section class="main-heading">
+        <h2>THE EARTH CHRONICLE</h2>
+        <p>News from our planet and beyond</p>
+    </section>
+
+    <main id="articles">
+        <div class="status">Loading the latest Earth News...</div>
+    </main>
+
+    <footer>
+        <p>DO YOU KNOW ABOUT EARTH?</p>
+        <p>Explore • Discover • Learn</p>
+        <p>© 2026</p>
+    </footer>
+
+</div>
+
+<script>
+const blogURL = "https://doyouknowaboutearth.blogspot.com";
+
+function loadEarthNews(data) {
+
+    const container = document.getElementById("articles");
+    const entries = data.feed.entry || [];
+
+    container.innerHTML = "";
+
+    if (entries.length === 0) {
+        container.innerHTML =
+            '<div class="status">No Earth News articles published yet.</div>';
+        return;
+    }
+
+    entries.forEach(entry => {
+
+        const title = entry.title.$t;
+        const content = entry.content
+            ? entry.content.$t
+            : entry.summary.$t;
+
+        const date = new Date(entry.published.$t)
+            .toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+        const link = entry.link.find(item =>
+            item.rel === "alternate"
+        ).href;
+
+        const article = document.createElement("article");
+        article.className = "article";
+
+        const heading = document.createElement("h2");
+        heading.textContent = title;
+
+        const dateElement = document.createElement("div");
+        dateElement.className = "article-date";
+        dateElement.textContent = "Published: " + date;
+
+        const body = document.createElement("div");
+        body.innerHTML = content;
+
+        const readMore = document.createElement("a");
+        readMore.href = link;
+        readMore.target = "_blank";
+        readMore.rel = "noopener";
+        readMore.textContent = "Read Full Article →";
+
+        article.appendChild(heading);
+        article.appendChild(dateElement);
+        article.appendChild(body);
+        article.appendChild(readMore);
+
+        container.appendChild(article);
+    });
+}
+
+const script = document.createElement("script");
+
+script.src =
+    blogURL +
+    "/feeds/posts/default/-/Earth%20News?alt=json-in-script&max-results=20&callback=loadEarthNews";
+
+script.onerror = function() {
+    document.getElementById("articles").innerHTML =
+        '<div class="status">Could not load articles. Please check your Blogger feed and internet connection.</div>';
+};
+
+document.body.appendChild(script);
+</script>
+
+</body>
+</html>

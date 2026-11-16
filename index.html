@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do You Know About Earth?</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    background: #020713;
+}
+
+header {
+    text-align: center;
+    padding: 30px 15px;
+    background: rgba(3, 15, 35, 0.95);
+}
+
+header h1 {
+    color: #63d5ff;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+header p {
+    margin-top: 10px;
+    color: #c4eaff;
+}
+
+nav {
+    text-align: center;
+    padding: 16px;
+    background: #030b18;
+    color: #62d5ff;
+    letter-spacing: 4px;
+}
+
+.hero {
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background:
+        linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.65)),
+        url("https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4");
+    background-size: cover;
+    background-position: center;
+    padding: 60px 20px;
+}
+
+.hero h2 {
+    font-size: 42px;
+    color: #70d9ff;
+    text-shadow: 0 0 20px #008cff;
+}
+
+.hero p {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.voyager-section {
+    background: #020713;
+    padding: 45px 15px;
+    text-align: center;
+}
+
+.voyager-section h2 {
+    color: #65d5ff;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.voyager-section p {
+    color: #c3d8eb;
+    margin-bottom: 25px;
+}
+
+.video-container {
+    max-width: 1000px;
+    margin: auto;
+    border: 2px solid #247ebd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,150,255,0.3);
+    background: black;
+}
+
+.video-container video {
+    width: 100%;
+    display: block;
+}
+
+.space-gallery {
+    padding: 50px 20px;
+    text-align: center;
+    background: linear-gradient(#020713, #071b35);
+}
+
+.space-gallery > h2 {
+    color: #65d5ff;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.gallery-card {
+    position: relative;
+    min-height: 250px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #071426;
+    border: 1px solid rgba(0, 170, 255, 0.35);
+    cursor: pointer;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.gallery-card summary {
+    list-style: none;
+    position: relative;
+    height: 100%;
+    min-height: 250px;
+}
+
+.gallery-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.gallery-card summary img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.gallery-card summary h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 10px;
+    color: white;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    text-align: center;
+    font-size: 21px;
+}
+
+.card-info {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 22px;
+    text-align: left;
+    color: #e5f5ff;
+    background: rgba(2, 12, 29, 0.94);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+}
+
+.card-info h3 {
+    color: #53d5ff;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.card-info p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.card-info ul {
+    padding-left: 20px;
+}
+
+.card-info li {
+    margin: 8px 0;
+    line-height: 1.35;
+    font-size: 14px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover {
+        transform: translateY(-9px);
+        border-color: #00baff;
+        box-shadow: 0 0 16px #008cff, 0 0 32px rgba(0,140,255,0.45);
+    }
+
+    .gallery-card:hover summary img {
+        transform: scale(1.1);
+    }
+
+    .gallery-card:hover .card-info {
+        opacity: 1;
+    }
+}
+
+.gallery-card[open] {
+    border-color: #00baff;
+    box-shadow: 0 0 16px #008cff, 0 0 32px rgba(0,140,255,0.4);
+}
+
+.gallery-card[open] .card-info {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gallery-card[open] summary img {
+    transform: scale(1.1);
+}
+
+.explore {
+    text-align: center;
+    padding: 65px 20px;
+    background: radial-gradient(ellipse at center, #12365c, #020713 75%);
+}
+
+.explore h2 {
+    color: #65d5ff;
+    font-size: 32px;
+}
+
+.explore p {
+    margin-top: 12px;
+    color: #c6d9ec;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 35px;
+    margin-top: 45px;
+}
+
+.comet-button,
+.asteroid-button {
+    width: 290px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 19px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.comet-button {
+    border-radius: 60px;
+    border: 2px solid #65d5ff;
+    background: linear-gradient(120deg, #07365e, #087db9, #071d42);
+    box-shadow: 0 0 20px #087db9;
+    overflow: hidden;
+}
+
+.comet-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px #45caff;
+}
+
+.comet-button span,
+.asteroid-button span {
+    font-size: 30px;
+    margin-right: 12px;
+}
+
+.asteroid-button {
+    border-radius: 42% 58% 48% 52% / 55% 40% 60% 45%;
+    border: 2px solid #a6c4dc;
+    background:
+        radial-gradient(circle at 20% 30%, #8d9aa8 2px, transparent 7px),
+        radial-gradient(circle at 70% 65%, #596879 5px, transparent 12px),
+        linear-gradient(135deg, #64778b, #172a40, #71859b);
+    box-shadow: 0 0 22px #718ba5;
+}
+
+.asteroid-button:hover {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 0 35px #a6c4dc;
+}
+
+footer {
+    background: #020913;
+    text-align: center;
+    padding: 30px;
+    color: #9bbbd4;
+}
+
+footer p {
+    margin: 8px;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 23px;
+    }
+
+    .hero h2 {
+        font-size: 30px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .comet-button,
+    .asteroid-button {
+        width: 90%;
+    }
+
+    .card-info {
+        padding: 18px;
+    }
+
+    .card-info li {
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+} 
+.gallery-card.is-closed:hover .card-info {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+.gallery {
+    display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌍 DO YOU KNOW ABOUT EARTH?</h1>
+    <p>Explore Our Planet, Discover Science, Understand Our Universe</p>
+</header>
+
+<nav>
+    ✦ EXPLORE • DISCOVER • LEARN ✦
+</nav>
+
+<section class="hero">
+    <h2>Welcome to Our Universe</h2>
+    <p>One Planet. Endless Discoveries.</p>
+</section>
+
+<section class="voyager-section">
+    <h2>🚀 VOYAGER: JOURNEY INTO SPACE</h2>
+    <p>Follow humanity's distant explorer on its journey beyond our solar system.</p>
+
+    <div class="video-container">
+        <video autoplay muted loop playsinline controls
+            poster="https://svs.gsfc.nasa.gov/vis/a010000/a013100/a013155/voyager_location_heliosphere_still.png">
+            <source
+                src="https://svs.gsfc.nasa.gov/vis/a010000/a013100/a013155/voyager_location_pull_out_from_solar_system_LQ.mp4"
+                type="video/mp4">
+            Your browser does not support this video.
+        </video>
+    </div>
+</section>
+<section class="explore">
+    <h2>Explore Our World</h2>
+    <p>Discover amazing inventions and learn what's happening on Earth.</p>
+
+    <div class="buttons">
+        <a href="human-inventions.html" class="comet-button">
+            <span>☄️</span>
+            Human Inventions
+        </a>
+
+        <a href="earth-news.html" class="asteroid-button">
+            <span>🪨</span>
+            Earth News
+        </a>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Do You Know About Earth</p>
+    <p>Exploring Our World Through Science and Discovery ❤️</p>
+</footer>
+<script>
+document.querySelectorAll('.gallery-card').forEach(card => {
+
+    card.addEventListener('click', function(event) {
+
+        if (this.open) {
+            event.preventDefault();
+            this.open = false;
+            this.classList.add('is-closed');
+            return;
+        }
+
+        if (event.target.closest('summary')) {
+            event.preventDefault();
+            this.open = true;
+            this.classList.remove('is-closed');
+        }
+
+    });
+
+    card.addEventListener('mouseleave', function() {
+        this.classList.remove('is-closed');
+    });
+
+});
+</script>
+</body>
+</html>
